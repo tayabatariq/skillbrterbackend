@@ -18,24 +18,42 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+
 router.post("/signup", async (req, res) => {
   try {
-    const { name, email, password, skillsHave, skillsWant, role } = req.body;
+    const {
+      name,
+      email,
+      password,
+      phone,
+      location,
+      role,
+      description,
+      skillsHave,
+      skillsWant,
+    } = req.body;
 
+    // Check if email already exists
     const existing = await User.findOne({ email });
     if (existing) {
       return res.json({ success: false, message: "Email already exists" });
     }
 
+    // Generate OTP
     const otp = generateOTP();
 
-    // Hash password before saving
+    // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    // Create new user with all fields
     const newUser = new User({
       name,
       email,
       password: hashedPassword,
+      phone,
+      location,
+      role,
+      description,
       skillsHave,
       skillsWant,
       otp,

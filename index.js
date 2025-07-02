@@ -4,6 +4,12 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const authRoutes = require("./routes/auth");
 const userRoutes=require("./routes/userRoutes")
+// backend/index.js or app.js
+
+app.use(cors({
+  origin: "https://skillbarter-beta.vercel.app", // ✅ tumhara frontend domain
+  credentials: true
+}));
 
 dotenv.config();
 

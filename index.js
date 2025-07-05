@@ -21,10 +21,10 @@ mongoose.connect(process.env.MONGO_URI, {
 
 app.use("/api", authRoutes);
 app.use("/api/users", userRoutes);
-// app.use(cors({
-//   origin: "https://skillbarter-beta.vercel.app", // ✅ tumhara frontend domain
-//   credentials: true
-// }));
+app.use(cors({
+  origin: "https://skillbarter-beta.vercel.app", // ✅ tumhara frontend domain
+  credentials: true
+}));
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => {
